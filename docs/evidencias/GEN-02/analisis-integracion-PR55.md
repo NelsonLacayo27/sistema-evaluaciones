@@ -1,14 +1,14 @@
 # GEN-02-BE: análisis de integración del PR #55
 
 Fecha: 2026-11-18
-Revisión local: `origin/main` `15b7c432`, PR #55 `798d159`, PR #34 `718cdb0`.
+Revisión local: `origin/main` `15b7c432`, PR #55 `798d159`, PR #34 `718cdb0` (cerrado sin fusionar).
 
 ## Resultado
 
 - El PR #23 (GEN-07) ya está incorporado en `origin/main`. Al comparar el PR #55 con esa rama, `git merge-tree` reporta un conflicto textual en `docs/api/openapi.yaml`; no reporta conflictos en los archivos Java o de base de datos de GEN-07.
 - Al comparar el PR #55 con el PR #34, el único conflicto textual reportado también es `docs/api/openapi.yaml`.
 - Que Git reporte un solo conflicto de texto no significa que ambas implementaciones puedan activarse juntas sin problema.
-- El diff de PR #55 contra `origin/main` reemplaza el OpenAPI aprobado: `docs/api/openapi.yaml` tiene 199 líneas añadidas y 1.408 eliminadas. El PR introduce el contrato de dos rutas, cambia `bearerAuth` por autenticación local y cambia título/versión; por tanto, no es solo un conflicto de formato.
+- Desde su base común, el #55 añade 274 líneas y elimina 4 en `docs/api/openapi.yaml`. La comparación directa entre `15b7c432` y `798d159` da +199/−1.408 porque las ramas evolucionaron por separado. El riesgo surge al resolver el conflicto: elegir íntegro el archivo del #55 dejaría solo dos rutas de evaluación y descartaría las otras 25 del contrato aprobado, además de cambiar el esquema de autenticación.
 - La página del PR #55 en GitHub muestra que hay conflictos pendientes y un check requerido (`ci-ok`) que todavía no reporta estado.
 
 ## Riesgo de API al combinar GEN-02 y GEN-03
